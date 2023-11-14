@@ -4,8 +4,11 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-icon.png">
-    <link rel="icon" type="image/png" href="/img/favicon.png">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    {{-- <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-icon.png">
+    <link rel="icon" type="image/png" href="/img/favicon.png"> --}}
+    <link rel="icon" type="image/x-icon" href="{{ asset('img/logos/logo-website.jpg') }}" />
+
     <title>
         Argon Dashboard 2 by Creative Tim
     </title>
@@ -19,6 +22,7 @@
     <link href="assets/css/nucleo-svg.css" rel="stylesheet" />
     <!-- CSS Files -->
     <link id="pagestyle" href="assets/css/argon-dashboard.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css">
 </head>
 
 <body class="{{ $class ?? '' }}">
@@ -42,7 +46,7 @@
                 <main class="main-content border-radius-lg">
                     @yield('content')
                 </main>
-            @include('components.fixed-plugin')
+            {{-- @include('components.fixed-plugin') --}}
         @endif
     @endauth
 
@@ -64,6 +68,35 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
     <script src="assets/js/argon-dashboard.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/default-passive-events"></script>
+    <script>
+        function CreateOrUpdate(url, method, data, idTable) {
+            // console.log(idTable)
+            // alert(idTable)
+            $.ajax({
+                headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                url: url,
+                type: method,
+                data: data,
+                dataType: 'json',
+                async: true,
+                success: function(res) {
+                    alert(res.meta.message)
+                    console.log(res.meta.message)
+                    // $(idTable).DataTable().ajax.reload(null, false)
+                    location.reload();
+                },
+                error: function(xhr, status, error) {
+                    var errorMessage = JSON.parse(xhr.responseText);
+                    alert(errorMessage.messages)
+                }
+            })
+        }
+    </script>
     @stack('js');
 </body>
 

@@ -2654,12 +2654,14 @@ html.addEventListener("click", function (e) {
   }
 }); // Resize navbar color depends on configurator active type of sidenav
 
-var referenceButtons = document.querySelector('[data-class]');
+var referenceButtons = document.querySelector('[class]');
+// var referenceButtons = document.querySelector('[data-class]');
 window.addEventListener("resize", navbarColorOnResize);
 
 function navbarColorOnResize() {
   if (window.innerWidth > 1200) {
-    if (referenceButtons.classList.contains('active') && referenceButtons.getAttribute('data-class') === 'bg-transparent') {
+    if (referenceButtons.classList.contains('active') && referenceButtons.getAttribute('class') === 'bg-transparent') {
+    // if (referenceButtons.classList.contains('active') && referenceButtons.getAttribute('data-class') === 'bg-transparent') {
       sidenav.classList.remove('bg-white');
     } else {
       sidenav.classList.add('bg-white');

@@ -9454,7 +9454,8 @@ textarea.form-control-lg {
 }
 
 .bg-primary {
-  background-color: #fb6340 !important;
+  /* background-color: #fb6340 !important; */
+  background-color: #051139 !important;
 }
 
 .bg-secondary {
@@ -19100,7 +19101,8 @@ textarea.form-control-lg {
 }
 
 .badge.bg-primary {
-  background: #fb6340;
+  /* background: #fb6340; */
+  background: #051139;
 }
 
 .badge.bg-secondary {
@@ -21186,9 +21188,11 @@ hr.horizontal.gray-light {
   top: 0;
 }
 .navbar-vertical.navbar-expand-xs .navbar-nav > .nav-item > .nav-link .icon svg .color-background {
+  /* fill: #f8f9fa; */
   fill: #212529;
 }
 .navbar-vertical.navbar-expand-xs .navbar-nav > .nav-item > .nav-link .icon svg .color-foreground {
+  /* fill: #f8f9fa; */
   fill: #212229;
 }
 .navbar-vertical.navbar-expand-xs .lavalamp-object {
@@ -21857,7 +21861,8 @@ hr.horizontal.gray-light {
   box-shadow: 0 0 2rem 0 rgba(136, 152, 170, 0.15);
 }
 .navbar-vertical.bg-white .navbar-nav > .nav-item .nav-link.active {
-  background-color: #f6f9fc;
+  /* background-color: #f6f9fc; */
+  background-color: #344767;
   box-shadow: none;
 }
 .navbar-vertical .navbar-nav .nav-link.active {
@@ -21866,7 +21871,8 @@ hr.horizontal.gray-light {
   border-radius: 0.5rem;
 }
 .navbar-vertical .navbar-nav > .nav-item .nav-link.active {
-  color: #344767;
+  /* color: #344767; */
+  color: #f6f9fc;
   background-color: rgba(255, 255, 255, 0.13);
 }
 
@@ -24864,5 +24870,19 @@ pre[class*=language-] {
 @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
   .ps {
     overflow: auto !important;
+  }
+}
+
+/* Untuk mode desktop */
+@media screen and (min-width: 1024px) {
+  #sidenav-main {
+    z-index: 1;
+  }
+}
+
+/* Untuk mode tablet dan smartphone */
+@media screen and (max-width: 1023px) {
+  #sidenav-main {
+    z-index: 9999;
   }
 }
