@@ -23,6 +23,8 @@
     <!-- CSS Files -->
     <link id="pagestyle" href="assets/css/argon-dashboard.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
 </head>
 
 <body class="{{ $class ?? '' }}">
@@ -70,11 +72,11 @@
     <script src="assets/js/argon-dashboard.js"></script>
     <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
     <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script type="text/javascript" src="https://unpkg.com/default-passive-events"></script>
     <script>
         function CreateOrUpdate(url, method, data, idTable) {
-            // console.log(idTable)
-            // alert(idTable)
             $.ajax({
                 headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -83,16 +85,25 @@
                 type: method,
                 data: data,
                 dataType: 'json',
+                // processData: false,
+                // contentType: false,
                 async: true,
+                cache: false,
                 success: function(res) {
-                    alert(res.meta.message)
-                    console.log(res.meta.message)
-                    // $(idTable).DataTable().ajax.reload(null, false)
-                    location.reload();
+                    Swal.fire({
+                        icon: "success",
+                        title: res.meta.message,
+                    })
+                    $('.data_tables').DataTable().ajax.reload();
                 },
                 error: function(xhr, status, error) {
                     var errorMessage = JSON.parse(xhr.responseText);
-                    alert(errorMessage.messages)
+                    Swal.fire({
+                        icon: "error",
+                        title: errorMessage.meta.message,
+                        text: errorMessage.data.message,
+                        // text: "User role cannot empty"
+                    })
                 }
             })
         }

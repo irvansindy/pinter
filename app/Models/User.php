@@ -8,10 +8,15 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
+use Spatie\Permission\Models\Role;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
-class User extends Authenticatable
+class User extends Authenticatable 
 {
     use HasApiTokens, HasFactory, Notifiable, HasRoles;
+
+    protected $table = "users";
 
     /**
      * The attributes that are mass assignable.
@@ -56,8 +61,14 @@ class User extends Authenticatable
      * @param $value
     * @return string
     */
-    public function setPasswordAttribute($value)
+    public function setPasswordAttribute($value): void
     {
         $this->attributes['password'] = bcrypt($value);
+    }
+
+    public function roleUser(): HasOne {
+    // public function roles(): HasOne {
+        // return $this->belongsTo(Role::class);
+        return $this->hasOne(Role::class);
     }
 }

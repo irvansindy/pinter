@@ -11,6 +11,7 @@
 
         if (create_role_name == '' || create_role_name == null) {
             alert('kosong bro')
+            return false;
         }
 
         let data = {
